@@ -1,0 +1,19 @@
+USE proVenta;
+create table tipoUsuario(
+id_tipo_user int auto_increment primary key not null,
+usuario varchar(100) not null
+);
+
+create table usuario(
+id_usuario int(20) auto_increment primary key not null,
+id_tipo_user INT not null,
+nombre varchar(100) not null,
+apellido varchar(100) not null,
+n_usuario varchar(100) not null,
+contraseña varchar(50) not null,
+fecha_creacion date not null,
+constraint usuario foreign key (id_tipo_user)
+	references proventa.tipoUsuario(id_tipo_user)
+	on delete restrict
+	on update restrict
+);
