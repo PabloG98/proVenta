@@ -27,15 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT n_usuario, contrasena FROM proventa.usuario WHERE n_usuario = ?";
+        $sql = "SELECT n_usuario, contrasena FROM proventa.usuario WHERE n_usuario = ? AND contrasena = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
             // Set parameters
             $param_username = trim($_POST["username"]);
-
+            $param_password = trim($_POST["password"]);
+            
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Store result
@@ -44,9 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $username, $password);
                     if (mysqli_stmt_fetch($stmt)) {
-                        if (password_verify($password, $hashed_password)) {
+                        if (!$username_err && !$password_err) {
                             /* Password is correct, so start a new session and
                               save the username to the session */
                             session_start();

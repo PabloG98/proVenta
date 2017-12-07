@@ -66,7 +66,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                         <h2 class="text-center">Control de Inventario</h2><hr>
                         <div class="text-center alert alert-success alert-dismissable">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                            <strong>¡BIENVENIDO!</strong><br> Inicio de sesión con éxito.
+                            <strong>¡BIENVENIDO! <?php echo $_SESSION['username']; ?></strong><br> Inicio de sesión con éxito.
                         </div>
                     </div>
                 </div>
