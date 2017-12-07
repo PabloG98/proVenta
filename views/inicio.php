@@ -1,9 +1,15 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// If session variable is not set it will redirect to login page
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+  header("location: ../index.php");
+  exit;
+}
+?>
+ 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head><link rel="icon" href="../img/proVenta.ico" type="image/x-icon">
         <meta charset="UTF-8">
@@ -40,7 +46,7 @@ and open the template in the editor.
                 </div>
                 <div id="navbar" class="navbar-collapse collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a style="color: green" onclick="logout(this.form)"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li><a style="color: green" href="../php/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,10 +87,5 @@ and open the template in the editor.
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> 
         <script src="js/jquery.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript">
-                            function logout(form) {
-                                window.location.replace("../index.php");
-                            }
-        </script>
     </body>
 </html>
